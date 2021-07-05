@@ -1,0 +1,15 @@
+body
+{
+    background: rgb(13, 13, 143);
+    padding-top: 25vh;
+}
+form{
+    background: whitesmoke;   
+}
+.form-container{
+ border-radius: 10px;
+ padding: 30px;
+}
+a{
+    color: white;
+}
