@@ -1,4 +1,12 @@
 <!-- SHIVANI -->
+<?php
+$con=mysqli_connect("localhost","root","","examsystem");
+if(!$con)
+{
+  die("Couldn't connect to sever");
+}
+$query=mysqli_query($con,"SELECT * FROM exampaper");
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,7 +35,7 @@
       </nav>
       <div class="container">
         <section id="allCategories" class="d-flex justify-content-between mt-3">
-          <a class="btn btn-light d-flex align-items-center">
+          <a class="btn btn-hover d-flex align-items-center">
             <div
               class="btn rounded-circle text-light bg-primary me-2"
               style="width: 35px; height: 35px"
@@ -74,66 +82,28 @@
           </a>
         </section>
         <section id="allExams" class="row mt-4">
-          <div class="col-lg-3 col-md-6 col-12">
-            <div class="card">
-              <div class="card-header bg-primary">
-                <h5 class="text-center text-light">Exam Title</h5>
-              </div>
-              <div class="card-body">
-                <h6>Start: Today</h6>
-                <h6>Expired: Tommorow</h6>
-                <h6>No of Questions: 50</h6>
-                <h6>No of Questions: 50</h6>
-                <hr />
-                <button class="btn btn-primary d-block mx-auto">Resume</button>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-12">
-            <div class="card">
-              <div class="card-header bg-primary">
-                <h5 class="text-center text-light">Exam Title</h5>
-              </div>
-              <div class="card-body">
-                <h6>Start: Today</h6>
-                <h6>Expired: Tommorow</h6>
-                <h6>No of Questions: 50</h6>
-                <h6>No of Questions: 50</h6>
-                <hr />
-                <button class="btn btn-primary d-block mx-auto">Resume</button>
+          <?php while($row=mysqli_fetch_assoc($query)): ?>
+            <div class="col-lg-3 col-md-6 col-12">
+              <div class="card">
+                <div class="card-header bg-primary">
+                  <h5 class="text-center text-light"><?php echo $row['Subject']?></h5>
+                </div>
+                <div class="card-body">
+                  <?php 
+                  $date1=date('m/d/y',strtotime($row['date']));
+                  $time=date('H:i:s',strtotime($row['date']));
+                  $end=date('H:i:s',strtotime($row['endTime']));
+                  ?>
+                  <h6>Start: <?php echo $date1?></h6>
+                  <h6>Time: <?php echo $time?></h6>
+                  <h6>Expired: <?php echo $end?></h6>
+                  <h6>No of Questions: <?php echo $row['Questions']?></h6>
+                  <hr />
+                  <button class="btn btn-primary d-block mx-auto">Resume</button>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-12">
-            <div class="card">
-              <div class="card-header bg-primary">
-                <h5 class="text-center text-light">Exam Title</h5>
-              </div>
-              <div class="card-body">
-                <h6>Start: Today</h6>
-                <h6>Expired: Tommorow</h6>
-                <h6>No of Questions: 50</h6>
-                <h6>No of Questions: 50</h6>
-                <hr />
-                <button class="btn btn-primary d-block mx-auto">Resume</button>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-12">
-            <div class="card">
-              <div class="card-header bg-primary">
-                <h5 class="text-center text-light">Exam Title</h5>
-              </div>
-              <div class="card-body">
-                <h6>Start: Today</h6>
-                <h6>Expired: Tommorow</h6>
-                <h6>No of Questions: 50</h6>
-                <h6>No of Questions: 50</h6>
-                <hr />
-                <button class="btn btn-primary d-block mx-auto">Resume</button>
-              </div>
-            </div>
-          </div>
+            <?php endwhile;?>
         </section>
       </div>
     </div>
